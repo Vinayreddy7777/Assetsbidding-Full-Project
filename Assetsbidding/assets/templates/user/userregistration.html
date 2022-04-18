@@ -1,0 +1,192 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Assets Bidding</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+    <!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none"
+                        href="mailto:info@company.com">assetsbidding@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <p>
+                <div>
+                    
+                        
+                     <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'admin_main' %}">Admin</a>
+                    /
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'user_main' %}">User</a>
+                
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'home_main' %}">
+                Assets Bidding
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home_main' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'asset_main' %}">Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_main' %}">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user_main' %}">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about_main' %}">About</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <br/><br/>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <center>
+            <div class="mb-3 mt-3 col-md-4">
+                <h2>User Registration</h2>
+                <br/>
+                <label for="text" class="form-label">Username:</label>
+                <input type="text" class="form-control"  placeholder="Enter Username" name="username">
+            </div>
+            <div class="mb-3 mt-3 col-md-4">
+                <label for="tel" class="form-label">Mobile Number:</label>
+                <input type="text" class="form-control" placeholder="Enter Mobile Number" name="mobile">
+            </div>
+            <div class="mb-3 mt-3 col-md-4">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" placeholder="Enter Email" name="email">
+            </div>
+            <div class="mb-3 mt-3 col-md-4">
+                <label for="dropdown" class="form-label">Profession:</label>
+                <select class="form-select  dropdown"  name="profession" required>
+                    <option selected hidden disabled>Select Your Profession</option>
+                    <option value="Student">Student</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Business">Business</option>
+                    <option value="Entreprenuer">Entreprenuer</option>
+                    <option value="Investor">Investor</option>
+                </select> 
+            </div>
+            <div class="mb-3 mt-3 col-md-4">
+                <label for="address" class="form-label">Address:</label>
+                <input type="text" class="form-control" placeholder="Enter Address" name="address">
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="pwd" class="form-label">Password:</label>
+                <input type="password" class="form-control"  placeholder="Enter password" name="password">
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="image" class="form-label">Profile Image:</label>
+                <input type="file" class="form-control " placeholder="Image"
+                  name="image"   />
+            </div>
+
+            <button type="submit" class="btn btn-success">Register</button>
+            <br/>
+            <br/>
+            <p>PLease go to 
+            <button type="submit" class="btn btn-light"><a href="{% url 'user_main' %}">User-Login</a></button>
+             after Registration</p>
+        </center>
+    </form>
+    <br/><br/>
+    <br/><br/>
+
+      <!-- Start Footer -->
+<center>
+    <div class="w-100 bg-black py-3">
+        <div class="container">
+            <div class="row pt-2">
+                <div class="col-12">
+                    <p class="text-left text-light">
+                        Copyright 2022 Assets Bidding.
+                        | Designed and Developed by <a rel="sponsored" href="https://codebook.in/"
+                            target="_blank">Codebook.in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/templatemo.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script>
+		
+		{% for msg in messages %} 
+					
+			swal("Server Response", "{{msg}}");
+		{% endfor %}
+		
+	</script> 
+    <!-- End Script -->
+</body>
+
+</html>

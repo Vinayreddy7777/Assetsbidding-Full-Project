@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Assets Bidding</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <!-- Load fonts style after rendering the layout styles -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+  <!-- Start Top Nav -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <div class="container text-light">
+      <div class="w-100 d-flex justify-content-between">
+        <div>
+          <i class="fa fa-envelope mx-2"></i>
+          <a class="navbar-sm-brand text-light text-decoration-none"
+            href="mailto:info@company.com">assetsbidding@gmail.com</a>
+          <i class="fa fa-phone mx-2"></i>
+          <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+        </div>
+        <p>
+        <div>
+
+
+          <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'admin_main' %}">Admin</a>
+          /
+          <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'user_main' %}">User</a>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Close Top Nav -->
+
+
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'home_main' %}">
+                Assets Bidding
+            </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+        <div class="flex-fill">
+          <ul class="nav d-flex justify-content-between mx-lg-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin-home' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add-assets' %}"> Add Assets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin-view-assets' %}">View Assets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'view-bids' %}">View Bids</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'purchased-assets' %}">Purchased Assets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'view-users' %}">View Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_logout' %}">Logout</a>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+  <!-- Close Header -->
+
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home_main' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'admin-home' %}">Admin</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Asset Details</li>
+    </ol>
+  </nav>
+  <!-- /Breadcrumb -->
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for i in d %}
+    <div class="card mb-4">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="/media/{{i.asset_image}}" alt="Working" width="500px" height="630px">
+
+
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Category</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <h5>{{ i.asset_category }}</h5> -->
+                  <input type="text" value="{{ i.asset_category }}" class="form-control" name="category">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Sub-Category</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <h5>{{ i.asset_sub_category }}</h5> -->
+                  <input type="text" value="{{ i.asset_sub_category }}" class="form-control" name="subcategory">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Asset Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <h5>{{ i.asset_name }}</h5> -->
+                  <input type="text" value="{{ i.asset_name }}" class="form-control" name="assetname">
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Bank</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <h5>{{ i.asset_bank }}</h5> -->
+                  <input type="text" value="{{ i.asset_bank }}" class="form-control" name="bank">
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Bid Starting Price</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <!-- <h5>{{ i.asset_price }}</h5> -->
+                  <input type="text" value="{{ i.asset_price }}" class="form-control" name="price">
+                </div>
+              </div>
+              <hr>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Description</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+
+                  <textarea class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Additional Details"
+                    name="description">{{ i.asset_desc }}</textarea>
+
+                </div>
+              </div>
+              <hr />
+
+
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Update Image :</h6>
+                </div>
+                <div class="col-sm-5 text-secondary">
+
+                  <input type="file" class="form-control " name="image" />
+
+                </div>
+                <div class="col-sm-2 ">
+
+                  <button type="submit" class="btn btn-primary btn-lg px-6"><a>Update</a></button>
+
+                </div>
+                <div class="col-sm-2">
+
+                  <a type="submit" href="/delete_asset/{{i.asset_id}}" class="btn btn-danger btn-lg px-6">Delete</a>
+
+                </div>
+                
+              </div>
+             
+
+
+
+
+
+            </div>
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </form>
+ 
+
+
+
+
+   <!-- Start Footer -->
+<center>
+  <div class="w-100 bg-black py-3">
+      <div class="container">
+          <div class="row pt-2">
+              <div class="col-12">
+                  <p class="text-left text-light">
+                      Copyright 2022 Assets Bidding.
+                      | Designed and Developed by <a rel="sponsored" href="https://codebook.in/"
+                          target="_blank">Codebook.in</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</center>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Start Script -->
+  <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/templatemo.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+  <!-- End Script -->
+
+</html>

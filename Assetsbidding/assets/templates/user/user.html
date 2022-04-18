@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Assets Bidding</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+    <!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none"
+                        href="mailto:info@company.com">assetsbidding@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <p>
+                <div>
+
+
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'admin_main' %}">Admin</a>
+                    /
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="{% url 'user_main' %}">User</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'home_main' %}">
+                Assets Bidding
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home_main' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'asset_main' %}">Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_main' %}">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user_main' %}">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about_main' %}">About</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <br /><br />
+
+
+    <form method="post">
+        {% csrf_token %}
+        {% if messages %}              
+              {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                    <script>swal({
+                      title: "HOLD :",
+                      text: "Please Login First",
+                      icon: "info",
+                      button: "OK",
+                    });
+                  </script>
+                  {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                  <script>swal({
+                    title: "ERROR :(",
+                    text: "Invalid Login",
+                    icon: "error",
+                    button: "OK",
+                  });
+                </script>
+                {% endif %}              
+              {% endfor %} 
+            {% endif %}
+        <center>
+            <div class="mb-3 mt-3 col-md-4">
+                <h2>User Login</h2>
+                <br />
+                <label for="text" class="form-label text-start">Email:</label>
+                <input type="email" class="form-control" placeholder="Enter Email" name="username">
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="pwd" class="form-label text-start">Password:</label>
+                <input type="password" class="form-control" placeholder="Enter password" name="password">
+            </div>
+
+            <button type="submit" class="btn btn-success">Login</button>
+
+            <button type="submit" class="btn btn-light"><a href="{% url 'user-registration' %}">Register</a></button>
+        </center>
+    </form>
+    <br />
+    <form>
+        <center>
+
+        </center>
+    </form>
+
+
+    <br /><br /><br /><br /><br /><br />
+    <!-- Start Footer -->
+    <center>
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright 2022 Assets Bidding.
+                            | Designed and Developed by <a rel="sponsored" href="https://codebook.in/"
+                                target="_blank">Codebook.in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/templatemo.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <!-- End Script -->
+</body>
+
+</html>

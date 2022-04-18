@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Assets Bidding</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'js/form-validations.js' %}"></script>
+
+
+    <!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none"
+                        href="mailto:info@company.com">assetsbidding@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <p>
+                <div>
+
+
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="admin.html">Admin</a>
+                    /
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="user.html">User</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'home_main' %}">
+                Assets Bidding
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin-home' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add-assets' %}"> Add Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin-view-assets' %}">View Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view-bids' %}">View Bids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'purchased-assets' %}">Purchased Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view-users' %}">View Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_logout' %}">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+    <br /><br />
+
+
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <center>
+        <form method="post" enctype="multipart/form-data" name="myform" onsubmit="return add_asset_validation();">
+            {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <script>swal({
+                    title: "Success :)",
+                    text: "Your Asset added Successfully",
+                    icon: "success",
+                    button: "OK",
+                });
+            </script>
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <script>swal({
+                    title: "ERROR :(",
+                    text: "Something Wrong, Please try Again.",
+                    icon: "error",
+                    button: "OK",
+                });
+            </script>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <div class="form-group col-md-3 mb-3">
+                <label for="Category"><b>Category</b></label>
+                <select name="category" class="form-control" placeholder="Category">
+                    <option selected hidden>Select Category</option>
+                    <option>Vehicle</option>
+                    <option>Property</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3 mb-3">
+                <label for="Sub-Category"><b>Sub Category</b></label>
+                <select name="subcategory" class="form-control">
+                    <option selected hidden>Select Sub-Category</option>
+                    <option>2 Wheeler</option>
+                    <option>4 Wheeler</option>
+                    <option>House</option>
+                    <option>Land</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3 mb-3">
+                <label for="inputemail"><b>Asset Name</b></label>
+                <input type="text" class="form-control mt-1" name="username" placeholder="Asset Name">
+            </div>
+
+
+            <div class="form-group col-md-3 mb-3">
+                <label for="Bankselection"><b>Bank</b></label>
+                <select name="bank" class="form-control" id="exampleFormControlSelect1" placeholder="Select Bank">
+                    <option selected hidden>Select Bank</option>
+                    <option>State Bank of India</option>
+                    <option>HDFC Bank</option>
+                    <option>Axis Bank</option>
+                    <option>ICICI Bank</option>
+                    <option>Kotak Mahindra Bank</option>
+                    <option>Union Bank of India</option>
+                    <option>Yes Bank</option>
+                    <option>Punjab National Bank</option>
+                    <option>Bank of Maharastra</option>
+                    <option>ING Bank</option>
+                    <option>Bank of Baroda</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3 mb-3">
+                <label for="inputmessage"><b>Description</b></label>
+                <textarea class="form-control mt-1" name="description" placeholder="Message" rows="3"></textarea>
+            </div>
+
+            <div class="form-group col-md-3 mb-3">
+                <label for="inputsubject"><b>Bid Starting Price</b></label>
+                <input type="tel" class="form-control mt-1" name="price" placeholder="Bid">
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <label for="Asset Image"><b>Asset Image:</b> </label>
+                <input type="file" name="image" class="form-control-file">
+            </div>
+
+            <br />
+
+
+
+            <br />
+
+
+            <div class="col text-center mt-2">
+                <button type="submit" class="btn btn-success btn-lg px-3">Add Asset</button>
+            </div>
+        </form>
+    </center>
+    </div>
+    <!-- End Contact -->
+
+
+
+
+    <br /><br />
+
+    <!-- Start Footer -->
+    <center>
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright 2022 Assets Bidding.
+                            | Designed and Developed by <a rel="sponsored" href="https://codebook.in/"
+                                target="_blank">Codebook.in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/templatemo.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <!-- End Script -->
+</body>
+
+</html>

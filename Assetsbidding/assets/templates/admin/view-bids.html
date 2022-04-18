@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Assets Bidding</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+    <!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none"
+                        href="mailto:info@company.com">assetsbidding@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <p>
+                <div>
+
+
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="admin.html">Admin</a>
+                    /
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="user.html">User</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'home_main' %}">
+                Assets Bidding
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin-home' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add-assets' %}"> Add Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin-view-assets' %}">View Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view-bids' %}">View Bids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'purchased-assets' %}">Purchased Assets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view-users' %}">View Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_logout' %}">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+    </nav>
+    <!-- Close Header -->
+    <br />
+
+
+
+    <!-- Start Content -->
+
+
+
+
+
+    <div class="col-12">
+        <div class="row">
+
+            <!-- <div class="input-group">
+                        <div class="form-outline">
+                          <input id="search-input" type="search" id="form1" class="form-control" />
+                          <label class="form-label" for="form1">Search</label>
+                        </div>
+                        <button id="search-button" type="button" class="btn btn-primary">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div> -->
+            <div class="col-md-4 pb-4" style="margin-left: 900px;">
+                <form method="post" class="modal-content modal-body border-0 p-0">
+                    {% csrf_token %}
+                    <div class="d-flex">
+                        <input  type="search" name="search" class="form-control"
+                            placeholder="Search" />
+
+                        <button type="submit" class="btn btn-success "><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th scope="col"> Bid Id</th>
+                                <th scope="col"> Asset Id</th>
+                                <th scope="col"> User Id</th>
+                                <th scope="col"> User Name</th>
+
+                                <th scope="col"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asset Name</th>
+
+                                <th scope="col">Bid Starting Price</th>
+                                <th scope="col">Bid Price</th>
+                                <th scope="col">Bid Date</th>
+                                <th scope="col">Status</th>
+                               
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for b in asset %}
+
+                            <tr>
+
+                                <td scope="row">&nbsp;&nbsp;&nbsp;{{ b.bid_id }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ b.asset_id }} </td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ b.user.user_id }} </td>
+                                <td>{{ b.user.username }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ b.asset.asset_name }}</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ b.asset.asset_price }}</td>
+                                <td>{{ b.bid_price }}</td>
+                                <td>{{ b.bid_date }}</td>
+                                <th>{{ b.status }}</th>
+                                <td><a href="/view_bids_accept/{{b.bid_id}}" class="btn btn-success"> Accept</a></td>
+                                <td><a href="/view_bids_reject/{{b.bid_id}}" class="btn btn-danger">Reject</a></td>
+
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+</body>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- Start Footer -->
+
+<footer>
+    <div class="w-100 bg-black py-3">
+        <div class="container">
+            <div class="row pt-2">
+                <div class="col-12">
+                    <p class="text-center text-light">
+                        Copyright 2022 Assets Bidding.
+                        | Designed and Developed by <a rel="sponsored" href="https://codebook.in/"
+                            target="_blank">Codebook.in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</footer>
+<!-- End Footer -->
+
+<!-- Start Script -->
+<script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+<script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/templatemo.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<!-- End Script -->
+
+</html>
